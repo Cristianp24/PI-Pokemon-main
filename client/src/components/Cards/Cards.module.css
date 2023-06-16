@@ -1,0 +1,9 @@
+.contenedorCartas {
+    padding: 10px;
+    border: 1px solid black;
+    flex-direction: row;
+    border-radius: 15px;
+    flex-flow: row wrap;
+    display: flex;
+    justify-content: space-around;
+}
