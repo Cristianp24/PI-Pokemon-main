@@ -1,30 +1,40 @@
-import style from './Pagination.module.css'
+import { useSelector, useDispatch } from "react-redux";
+import { nextPage, prevPage, setPage } from "../../redux/actions";
+import style from "./Pagination.module.css";
 
+const Paginate = ({ cantPages }) => {
+    const { numPage } = useSelector((state) => state);
+    const dispatch = useDispatch();
+    const next = () => {
+        dispatch(nextPage());
+    };
+    const prev = () => {
+        dispatch(prevPage());
+    };
+    const number = (n) => {
+        dispatch(setPage(n));
+    };
+    return (
+        <div className={style["paginate-container"]}>
+            {numPage > 1 ? <button onClick={prev}>PREV</button> : null}
 
-const Pagination = ({ pokemonsPerPage, totalPokemons, currentPage, paginate }) => {
-  const pageNumbers = [];
+            <div className={style["current-page"]}>
+                {[...Array(cantPages)].map((_, index) => (
+                    <button
+                        key={index}
+                        className={`${style["page-number"]} ${
+                            numPage === index + 1 ? style["active"] : ""
+                        }`}
+                        onClick={() => number(index + 1)}
+                    >
+                        {index + 1}
+                    </button>
+                ))}
+            </div>
 
-  for (let i = 1; i <= Math.ceil(totalPokemons / pokemonsPerPage); i++) {
-    pageNumbers.push(i);
-  }
-
-  return (
-    <nav>
-      <ul className="pagination">
-        {pageNumbers.map(number => (
-          <li key={number} className={style.pageitem}>
-            <button
-              className={`page-link${currentPage === number ? ' active' : ''}`}
-              onClick={() => paginate(number)}
-            >
-              {number}
-            </button>
-          </li>
-        ))}
-      </ul>
-    </nav>
-  );
+            {numPage < cantPages ? <button onClick={next}>NEXT</button> : null}
+        </div>
+    );
 };
 
-
-  export default Pagination
+export default Paginate;

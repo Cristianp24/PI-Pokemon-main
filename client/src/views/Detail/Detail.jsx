@@ -1,31 +1,29 @@
 import React from "react";
-import { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
 import style from './Detail.module.css'
+import { useEffect ,} from "react";
+import { useDispatch, useSelector} from 'react-redux'; 
+import { useParams } from "react-router-dom";
+import { getPokemonById } from "../../redux/actions";
 
 
 
-export default function Detail(){
 
-    const [pokemon, setPokemon] = useState({})
 
-    const { idDetail } = useParams();
+export default function Detail(){ 
 
-    useEffect(() => {
-        fetch(`http://localhost:3001/pokemons/${idDetail}`)
-          .then((response) => response.json())
-          .then((pokemon) => {
-            if (pokemon.name) {
-              setPokemon(pokemon);
-            } else {
-              window.alert("No hay personajes con ese ID");
-            }
-          })
-          .catch((error) => {
-            window.alert("No hay personajes con ese ID");
-          });
-        return setPokemon({});
-      }, [idDetail]);
+  const dispatch = useDispatch();
+
+  const {id} = useParams();
+  
+
+  const pokemon = useSelector((state)=>state.pokemonDetail)
+
+ 
+  useEffect(() => {
+    dispatch(getPokemonById(id))
+  },[id]);
+
+    
       
     return(
         <div >

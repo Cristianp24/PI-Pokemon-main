@@ -1,11 +1,16 @@
 import React, { useState, useEffect } from 'react';
-import { useDispatch} from 'react-redux';
+import { useDispatch, useSelector} from 'react-redux';
 import { postPokemon , getTypes } from '../../redux/actions';
 
 
 export default function Form() {
 
   const dispatch = useDispatch();
+
+  const  allTypes = useSelector(state => state.types);
+
+  const [selected, setSelected] = useState("");
+ 
 
 
   const [form, setForm] = useState({
@@ -17,7 +22,7 @@ export default function Form() {
     speed:"",
     height:"",
     weight:"",
-    type:"",
+    types:[],
   });
 
   useEffect(() => {
@@ -46,11 +51,29 @@ export default function Form() {
       speed: '',
       height: '',
       weight: '',
-      type: '',
+      types: [],
     });
   };
 
-    
+
+  const handlepokemons = (event) => {
+    if(event.target.value !== 'Select type' && !form.types.includes(event.target.value)){
+        setForm({
+            ...form,
+            types:[...form.types, event.target.value]
+        })
+       
+    }
+}
+
+
+ const deleteType = (event) => {
+  setForm({
+    ...form,
+    types: form.types.filter((type) => type !== event.target.value)
+})
+ }
+   
     
   return (
     <form onSubmit={handleSubmit}>
@@ -87,10 +110,36 @@ export default function Form() {
         <label htmlFor="">Weight</label>
         <input type="text"  value={form.weight}  onChange={changeHandler} name="weight" />
       </div>
+
+
+
+      <select className='' value={selected} onChange={event => [handlepokemons(event), setSelected(event)]}>
+                <option>Select Type</option>
+                {allTypes?.map(element => {
+                    return(
+                        <option key={element.name}>
+                            {element.name}
+                        </option>
+                    )
+                })}
+            </select>
+            <div>
+                    {form.types.map((type) => {
+                        return(
+                            <div className='' key={type}>
+                                <p>{type}</p>
+                                <button className='' onClick={deleteType} value={type}> X </button>
+                            </div>
+                        )
+                    })}
+                </div>
+{/* 
       <div>
         <label htmlFor="">Type</label>
-        <input type="text"  value={form.type}  onChange={changeHandler} name="type" />
-      </div>
+        <input type="text"  value={form.types}  onChange={changeHandler} name="types" />
+      </div> */}
+
+
       <button type="submit">Crear Pokemon</button>
     </form>
   )
