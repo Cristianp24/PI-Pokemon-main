@@ -12,7 +12,7 @@ function App() {
 
   return (
     <div className='App'>
-      {pathname !== "/" && <NavBar />}
+      {pathname !== "/" && pathname !== "/pokemons/:id" && <NavBar />}
       <Routes>
       <Route exact path="/" element={<Landing/>}/>
       <Route exact path="/create" element={<Form/>}/>

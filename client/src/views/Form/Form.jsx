@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector} from 'react-redux';
 import { postPokemon , getTypes } from '../../redux/actions';
+import style from './Form.module.css'
 
 
 export default function Form() {
@@ -76,44 +77,45 @@ export default function Form() {
    
     
   return (
+    <div className={style.form}>
     <form onSubmit={handleSubmit}>
       <div>
         <h1>Ingrese datos: </h1>
-        <label htmlFor="">Name</label>
+        <label className={style.label} htmlFor="">Name</label>
         <input type="text" value={form.name} onChange={changeHandler} name="name" />
       </div>
       <div>
-        <label htmlFor="">Image</label>
+        <label className={style.label} htmlFor="">Image</label>
         <input type="text"  value={form.image}  onChange={changeHandler} name="image" />
       </div>
       <div>
-        <label htmlFor="">Hp</label>
+        <label className={style.label} htmlFor="">Hp</label>
         <input type="text"  value={form.hp}  onChange={changeHandler} name="hp" />
       </div>
       <div>
-        <label htmlFor="">Attack</label>
+        <label className={style.label} htmlFor="">Attack</label>
         <input type="text"  value={form.attack}  onChange={changeHandler} name="attack" />
       </div>
       <div>
-        <label htmlFor="">Defense</label>
+        <label className={style.label} htmlFor="">Defense</label>
         <input type="text"  value={form.defense}  onChange={changeHandler} name="defense" />
       </div>
       <div>
-        <label htmlFor="">Speed</label>
+        <label className={style.label} htmlFor="">Speed</label>
         <input type="text"   value={form.speed}  onChange={changeHandler} name="speed" />
       </div>
       <div>
-        <label htmlFor="">Height</label>
+        <label className={style.label} htmlFor="">Height</label>
         <input type="text"  value={form.height}  onChange={changeHandler} name="height" />
       </div>
       <div>
-        <label htmlFor="">Weight</label>
+        <label className={style.label} htmlFor="">Weight</label>
         <input type="text"  value={form.weight}  onChange={changeHandler} name="weight" />
       </div>
 
 
 
-      <select className='' value={selected} onChange={event => [handlepokemons(event), setSelected(event)]}>
+      <select className={style.select} value={selected} onChange={event => [handlepokemons(event), setSelected(event)]}>
                 <option>Select Type</option>
                 {allTypes?.map(element => {
                     return(
@@ -128,7 +130,7 @@ export default function Form() {
                         return(
                             <div className='' key={type}>
                                 <p>{type}</p>
-                                <button className='' onClick={deleteType} value={type}> X </button>
+                                <button className={style.butonclose} onClick={deleteType} value={type}> X </button>
                             </div>
                         )
                     })}
@@ -140,7 +142,8 @@ export default function Form() {
       </div> */}
 
 
-      <button type="submit">Crear Pokemon</button>
+      <button className={style.boton} type="submit">Crear Pokemon</button>
     </form>
+    </div>
   )
 }

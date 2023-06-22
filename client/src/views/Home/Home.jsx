@@ -57,14 +57,15 @@ const Home = () => {
   }
 
   return (
-    <div className="home-page">
+    <div className={style.home}>
+      <div className={style.filter}>
       <select onChange={(e) => handleFilterChange(e)} className={style.select}>
         <option value="All">All</option>
         <option value="Created">DB</option>
         <option value="Existing">API</option>
       </select>
 
-      <Cards pokemons={allPokemons} />
+      
 
       <select
         onChange={(event) => handleFilterType(event)}
@@ -112,6 +113,8 @@ const Home = () => {
           (-+) Attack
         </option>
       </select>
+      </div>
+      <Cards pokemons={allPokemons} />
     </div>
   );
 };

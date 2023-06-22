@@ -1,6 +1,6 @@
 .Carta {
     height: 35vh;
-    width: 20rem;
+    width: 200px;
     box-shadow: 0 1.5rem 4rem rgba(0, 0, 0, 0.6) ;
     margin: 0.5rem;
     display: flex;
@@ -16,17 +16,33 @@
 }
 .Carta:hover {
     border: 2px solid red;
+    transform: scale(1.05);
 }
 
 .name {
     text-decoration: none;
-    
     font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
 }
 
 .types{
-    display: grid;
-    align-items: center;
-    justify-content: space-around;
+  font-weight: larger;
+  font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
 
+}
+
+.img {
+    width: 100px;
+    height: 100px;
+    
+}
+
+@media screen and (max-width: 600px) {
+    .Carta {
+     width: auto;
+    }
+    .name {
+        display: flex;
+        width: auto;
+        height: auto;
+    }
 }

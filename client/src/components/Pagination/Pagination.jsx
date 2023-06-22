@@ -15,14 +15,14 @@ const Paginate = ({ cantPages }) => {
         dispatch(setPage(n));
     };
     return (
-        <div className={style["paginate-container"]}>
-            {numPage > 1 ? <button onClick={prev}>PREV</button> : null}
+        <div className={style.pagination}>
+            {numPage > 1 ? <button className={style.btnx} onClick={prev}>PREV</button> : null}
 
             <div className={style["current-page"]}>
                 {[...Array(cantPages)].map((_, index) => (
-                    <button
+                    <button 
                         key={index}
-                        className={`${style["page-number"]} ${
+                        className={`${style.btnx} ${
                             numPage === index + 1 ? style["active"] : ""
                         }`}
                         onClick={() => number(index + 1)}
@@ -32,7 +32,7 @@ const Paginate = ({ cantPages }) => {
                 ))}
             </div>
 
-            {numPage < cantPages ? <button onClick={next}>NEXT</button> : null}
+            {numPage < cantPages ? <button className={style.btnx} onClick={next}>NEXT</button> : null}
         </div>
     );
 };

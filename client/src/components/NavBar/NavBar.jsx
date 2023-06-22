@@ -10,6 +10,7 @@ const NavBar = () => {
          <Link className={style.link} to="/home">Home</Link >
 
          <Link className={style.link} to="/">Landing </Link >
+         
          <SearchBar  />
 
          <Link className={style.link}to="/create">Create </Link >

@@ -14,11 +14,11 @@ navigate(`/pokemons/${id}`)
   return (
     <div  onClick={navigateHandler}className={style.Carta}>
       
-       <p className={style.name}>Pokemon: {name}</p>
+       <p className={style.name}>{name}</p>
     
-      <img width="100px"height="100px"alt='not found'src={image} />
-      <p>
-      Type:{" "}
+      <img className={style.img}alt='not found'src={image} />
+      <p className={style.types}>
+      {" "}
               {types &&
                 types?.map((e, index) => {
                   return (

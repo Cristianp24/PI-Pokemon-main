@@ -35,15 +35,10 @@ export const getTypes = () => {
   }
   export function getNamePokemons(name){
     return async function (dispatch){
-      await axios.get(`http://localhost:3001/pokemons/?name=${name}`)
-       .then((response) =>{
+     let response = await axios.get(`http://localhost:3001/pokemons/?name=${name}`)
         return dispatch({type: GET_NAME_POKEMONS, payload: response.data})
-       }).catch((error) =>{
-        alert("Pokemon Not Found ")
-       })
-      } 
+       }
       }
-
 
     export function getPokemonById(id){
       

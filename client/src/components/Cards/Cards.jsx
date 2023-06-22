@@ -14,7 +14,13 @@ export default function Cards({pokemons}){
     let desde = (numPage - 1) * 12;
     let hasta = numPage * 12;
 
-    let viewPokemons = pokemons.slice(desde, hasta);
+    if (!Array.isArray(pokemons)) {
+        return null; // O muestra un mensaje de error, o retorna algo apropiado cuando no haya datos disponibles.
+      }
+    
+      const slicedPokemons = pokemons.slice(desde, hasta); // Utiliza slice() en el array pokemons
+    
+
     let cantPages = Math.ceil(pokemons.length / 12);
 
 
@@ -22,8 +28,9 @@ export default function Cards({pokemons}){
                     return (
 
                         <div className={style.contenedorCartas}>
-                             {viewPokemons &&
-                    viewPokemons.map((pokemon) => {
+                         
+                             {slicedPokemons &&
+                    slicedPokemons.map((pokemon) => {
                             
                                 return <Card
                                 key={pokemon.id}
