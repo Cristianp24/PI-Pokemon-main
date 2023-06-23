@@ -4,11 +4,17 @@ const { Pokemon, Type } = require("../db");
 
 const pokemons = async () => {
    
-  const Dbpokes = await Pokemon.findAll();
+  const Dbpokes = await Pokemon.findAll({
+    include: {
+      model: Type,
+    attributes:["name"]
+      }
+    
+  });
 
 
   const apiUrl = await axios.get(
-    "https://pokeapi.co/api/v2/pokemon/?offset=0&limit=120"
+    "https://pokeapi.co/api/v2/pokemon"
   );
   const apiInfo = await apiUrl.data.results.map((e) => e.url);
 
@@ -16,18 +22,23 @@ const pokemons = async () => {
 
   const arrayAxiosPokemon = arrayLinksPokemons.map((e) => axios.get(e)); // array de promesas
   const pokemonPromise = await Promise.all(arrayAxiosPokemon);
+ 
   const pokemonFilter = pokemonPromise.map((e) => {
     return {
       name: e.data.name,
       id: e.data.id,
       height: e.data.height,
       weight: e.data.weight,
-      types: e.data.types.map((e) => e.type.name),
+      types:e.data.types.map((e) => {
+        return { name: e.type.name };
+      }),
       image: e.data.sprites.front_default,
       hp: e.data.stats[0]["base_stat"],
       attack: e.data.stats[1]["base_stat"],
       defense: e.data.stats[2]["base_stat"],
       speed: e.data.stats[5]["base_stat"],
+      
+    
     };
   });
    return [...Dbpokes,...pokemonFilter];
@@ -56,13 +67,13 @@ const pokemonById = async (idPokemon) => {
       name: dataPokemon.name,
       image: dataPokemon.image,
       types: dataPokemon.types.map((el) => el.name).join(" - "),
-      live: dataPokemon.live,
+      hp: dataPokemon.hp,
       attack: dataPokemon.attack,
       defense: dataPokemon.defense,
-      velocity: dataPokemon.velocity,
+      speed: dataPokemon.speed,
       height: dataPokemon.height,
       weight: dataPokemon.weight,
-      createdInDb: dataPokemon.createdInDb,
+      created: dataPokemon.created,
     };
     return infoPokemon;
   } else {
@@ -76,10 +87,10 @@ const pokemonById = async (idPokemon) => {
       name: pokemonApi.name,
       image: pokemonApi.sprites.other["official-artwork"].front_default,
       types: pokemonApi.types.map((el) => el.type.name).join(" - "),
-      live: pokemonApi.stats[0].base_stat,
+      hp: pokemonApi.stats[0].base_stat,
       attack: pokemonApi.stats[1].base_stat,
       defense: pokemonApi.stats[2].base_stat,
-      velocity: pokemonApi.stats[5].base_stat,
+      speed: pokemonApi.stats[5].base_stat,
       height: pokemonApi.height,
       weight: pokemonApi.weight,
     };
@@ -88,9 +99,10 @@ const pokemonById = async (idPokemon) => {
   }
 };
 
-const createPokemon = async ({name,image,hp,attack,defense,speed,height,weight,type,}) => {
+const createPokemon = async ({name,image,hp,attack,defense,speed,height,weight,types}) => {
+ console.log({name,image,hp,attack,defense,speed,height,weight,types});
   const createdPokemon = await Pokemon.create({
-    name,
+    name: name.toLowerCase(),
     image,
     hp,
     attack,
@@ -98,16 +110,26 @@ const createPokemon = async ({name,image,hp,attack,defense,speed,height,weight,t
     speed,
     height,
     weight,
-    type,
+    types,
+    
+  
   });
 
+  
+   let pokeTypes = await Type.findAll({
+    where: {
+      name : types
+    }
+    
+   })
+   await createdPokemon.addType(pokeTypes)
   return createdPokemon;
 };
 
 
 const getPokemonByName = async (name) => {
   
-  const pokeNameDb = await Pokemon.findAll({where: {name:name}});
+  const pokeNameDb = await Pokemon.findAll({where: {name:name},include: Type});
   if(pokeNameDb.length) {
     return pokeNameDb
   }else {
@@ -115,20 +137,21 @@ const getPokemonByName = async (name) => {
 let linkData = `https://pokeapi.co/api/v2/pokemon/${name}`;   
      
      const {data} = await axios.get(linkData)
-     
+    
+    
      const pokemon = {
          id : data.id,
          name : data.name,
-         life : data.stats[0].base_stat,
-         stroke : data.stats[1].base_stat,
-         defending : data.stats[2].base_stat,
+         hp : data.stats[0].base_stat,
+         attack : data.stats[1].base_stat,
+         defense : data.stats[2].base_stat,
          speed : data.stats[5].base_stat,
          height : data.height,
          weight : data.weight,
-         imageDefault: data.sprites.other.dream_world.front_default,
-         imageF : data.sprites.other.home.front_default,
-         imageB : data.sprites.other.home.front_shiny,
-         types: data.types.map((t) => t.type.name),
+         image: data.sprites.other.dream_world.front_default,
+         types: data.types.map((e) => {
+          return { name: e.type.name };
+        }),
      };
     
      return pokemon

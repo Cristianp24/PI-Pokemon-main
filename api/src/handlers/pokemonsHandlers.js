@@ -11,6 +11,7 @@ const {
 const getPokemonsHandler = async (req, res) => {
     try {
         const { name } = req.query;
+        
         const allPokemon = await pokemons();
         if(name){
             const pokemon = await getPokemonByName(name);
@@ -36,19 +37,19 @@ const getPokemonHandler = async (req, res) => {
   }
 };
 
-const getPokemonHandlerName = async (req, res) => {
-  try {
-    const { name } = req.query;
-    let poke = await pokemonByName(name);
-    res.status(200).json(poke);
-  } catch (error) {
-    res.status(400).json({ error: error.mesagge });
-  }
-};
+// const getPokemonHandlerName = async (req, res) => {
+//   try {
+//     const { name } = req.query;
+//     let poke = await getPokemonByName(name);
+//     res.status(200).json(poke);
+//   } catch (error) {
+//     res.status(400).json({ error: error.mesagge });
+//   }
+// };
 
 const newPokemon = async (req, res) => {
   try {
-    const { name, image, hp, attack, defense, speed, height, weight, type } =
+    const { name, image, hp, attack, defense, speed, height, weight, types } =
       req.body;
     const newPoke = await createPokemon({
       name,
@@ -59,7 +60,7 @@ const newPokemon = async (req, res) => {
       speed,
       height,
       weight,
-      type,
+      types,
     });
     res.status(201).json(newPoke);
   } catch (error) {
@@ -71,5 +72,5 @@ module.exports = {
   getPokemonsHandler,
   getPokemonHandler,
   newPokemon,
-  getPokemonHandlerName,
+  // getPokemonHandlerName,
 };

@@ -15,7 +15,7 @@
     cursor: pointer;
 }
 .Carta:hover {
-    border: 2px solid red;
+    border: 2px solid #39ff14;;
     transform: scale(1.05);
 }
 
