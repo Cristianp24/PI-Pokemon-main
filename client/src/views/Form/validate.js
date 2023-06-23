@@ -1,27 +1,40 @@
-const Validate = (input) => {
-    let errors = {}
-    if (!/^[a-zA-Z]+$/.test(input.name)) {
-      errors.name = 'Name must be only letters'
-    }
-    if (!input.name) {
-      errors.name = 'Please insert a Name'
-    }
-  
-    if (Number(input.hp) < 1 || Number(input.hp) > 99) {
-      errors.hp = 'Health Poins must be a number between 1-99'
-    }
-  
-    if (Number(input.attack) < 1 || Number(input.attack) > 99) {
-      errors.attack = 'Attack must be a number between 1-99'
-    }
-  
-    if (Number(input.defense) < 1 || Number(input.defense) > 99) {
-      errors.defense = 'Defense must be a number between 1-99'
-    }
-    if (input.types.length < 1 || input.types.length > 3) {
-      errors.types = 'Pokemon must have from 1 to 3 types'
-    }
-    return errors
+
+
+export default function validate(form) {
+  const errors = {};
+
+  if (form.name.trim() === '') {
+    errors.name = 'Nombre es obligatorio';
   }
-  
-  export default Validate
+
+  if (form.image.trim() === '') {
+    errors.image = 'Imagen es obligatoria';
+  }
+  if (form.hp < 0 || form.hp > 100) {
+    errors.hp = 'Hp entre 0 y 100';
+  }
+  if (form.attack < 0 || form.attack > 100) {
+    errors.attack = 'Ataque entre 0 y 100';
+  }
+  if (form.defense < 0 || form.defense > 100) {
+    errors.defense = 'Defensa entre 0 y 100';
+  }
+  if (form.speed < 0 || form.speed > 100) {
+    errors.speed = 'Velocidad entre 0 y 100';
+  }
+  if (form.height < 0 || form.height > 100) {
+    errors.height = 'Altura entre 0 y 100';
+  }
+  if (form.weight < 0 || form.weight > 1000) {
+    errors.weight = 'Peso entre 0 y 1000';
+  }
+  if (form.types.length === 0) {
+    errors.types = 'Seleccione tipo de pokemon';
+  }
+
+
+
+  // Agrega más validaciones según tus necesidades, por ejemplo, para los demás campos.
+
+  return errors;
+}

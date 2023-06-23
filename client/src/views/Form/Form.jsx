@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector} from 'react-redux';
 import { postPokemon , getTypes } from '../../redux/actions';
 import style from './Form.module.css'
+import validate from './validate'
 
 
 export default function Form() {
@@ -41,20 +42,27 @@ export default function Form() {
    
   const handleSubmit = (e) => {
     e.preventDefault();
-    dispatch(postPokemon(form));
-    // Reset form values
-    setForm({
-      name: '',
-      image: '',
-      hp: '',
-      attack: '',
-      defense: '',
-      speed: '',
-      height: '',
-      weight: '',
-      types: [],
-    });
+    const errors = validate(form);
+
+    if (Object.keys(errors).length === 0) {
+      dispatch(postPokemon(form));
+      setForm({
+        name: '',
+        image: '',
+        hp: '',
+        attack: '',
+        defense: '',
+        speed: '',
+        height: '',
+        weight: '',
+        types: [],
+      });
+    } else {
+      const errorMessages = Object.values(errors).join('\n');
+    alert(errorMessages);
   };
+  }
+  
 
 
   const handlepokemons = (event) => {
@@ -135,12 +143,6 @@ export default function Form() {
                         )
                     })}
                 </div>
-{/* 
-      <div>
-        <label htmlFor="">Type</label>
-        <input type="text"  value={form.types}  onChange={changeHandler} name="types" />
-      </div> */}
-
 
       <button className={style.boton} type="submit">Crear Pokemon</button>
     </form>

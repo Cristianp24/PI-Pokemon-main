@@ -1,4 +1,4 @@
-import {GET_POKEMON_BY_ID,GET_NAME_POKEMONS, GET_POKEMONS,GET_ALL_TYPES, ORDER_AZ, ORDER_ATTACK, GET_TYPES, RESET_POKEMONS, FILTER_CREATED,SET_PAGE,NEXT_PAGE,PREV_PAGE} from './types'
+import {POST_POKEMON,GET_POKEMON_BY_ID,GET_NAME_POKEMONS, GET_POKEMONS,GET_ALL_TYPES, ORDER_AZ, ORDER_ATTACK, GET_TYPES, RESET_POKEMONS, FILTER_CREATED,SET_PAGE,NEXT_PAGE,PREV_PAGE} from './types'
 import axios from 'axios';
 
 
@@ -25,20 +25,29 @@ export const getTypes = () => {
   }
 
   export function postPokemon(payload){
-    
     return async function (dispatch) {
+      try {
       const response = await axios.post("http://localhost:3001/pokemons",payload);
-      console.log(response);
-      return response;
+      return dispatch({
+        type: POST_POKEMON,
+        payload: response.data,
+      });
+    } catch (error) {
+      alert("Algo salio mal")
     }
-    
-  }
+  };
+}
   export function getNamePokemons(name){
     return async function (dispatch){
+      try {
      let response = await axios.get(`http://localhost:3001/pokemons/?name=${name}`)
         return dispatch({type: GET_NAME_POKEMONS, payload: response.data})
-       }
+      } catch (error) {
+        alert('No se encontro Pokemon')
       }
+    }
+  }
+
 
     export function getPokemonById(id){
       
