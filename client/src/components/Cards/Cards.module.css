@@ -9,10 +9,10 @@
 
 @media screen and (max-width: 600px) {
     .contenedorCartas {
-    display: flex;
-   flex-wrap: wrap;
-   flex-direction: row;
-   margin-left: 10px;
+      display: grid ;
+      width: fit-content;
+      height: fit-content;
+ 
    
 
     }

@@ -8,7 +8,6 @@
     align-items: center;
     justify-content: center;
     border-radius: 0.8rem;
-    position: relative;
     background: linear-gradient(220.55deg, #FFF6EB 0%, #DFD1C5 100%);
     font-size: 20px;
     z-index: 10;
@@ -38,7 +37,12 @@
 
 @media screen and (max-width: 600px) {
     .Carta {
-     width: auto;
+     width: 250px;
+     height: 350px;
+     display: flex;
+     justify-content: center;
+     align-items: center;
+     margin-left: 40px;
     }
     .name {
         display: flex;
