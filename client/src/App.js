@@ -10,9 +10,12 @@ function App() {
   const { pathname } = useLocation();
   
 
+  const isDetailPage = /^\/pokemons\/\d+$/.test(pathname);
+
+
   return (
     <div className='App'>
-      {pathname !== "/" && pathname !== "/pokemons/:id" && <NavBar />}
+      {pathname !== "/" &&  pathname !== "/create" && !isDetailPage && <NavBar />}
       <Routes>
       <Route exact path="/" element={<Landing/>}/>
       <Route exact path="/create" element={<Form/>}/>

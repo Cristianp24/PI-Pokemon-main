@@ -3,10 +3,12 @@ import { useDispatch, useSelector} from 'react-redux';
 import { postPokemon , getTypes } from '../../redux/actions';
 import style from './Form.module.css'
 import validate from './validate'
+import { useNavigate } from "react-router-dom";
 
 
 export default function Form() {
 
+  const navigate = useNavigate();
   const dispatch = useDispatch();
 
   const  allTypes = useSelector(state => state.types);
@@ -57,6 +59,8 @@ export default function Form() {
         weight: '',
         types: [],
       });
+      alert("Pokemon creado exitosamente")
+      navigate(`/home`)
     } else {
       const errorMessages = Object.values(errors).join('\n');
     alert(errorMessages);
@@ -82,12 +86,17 @@ export default function Form() {
     types: form.types.filter((type) => type !== event.target.value)
 })
  }
+
+ function navigateHandler() {
+  navigate(`/home`)
+   }
    
     
   return (
     <div className={style.form}>
     <form onSubmit={handleSubmit}>
       <div>
+      <button className={style.btnhome} onClick={navigateHandler}>Back home</button>
         <h1>Ingrese datos: </h1>
         <label className={style.label} htmlFor="">Name</label>
         <input type="text" value={form.name} onChange={changeHandler} name="name" />
@@ -146,6 +155,7 @@ export default function Form() {
 
       <button className={style.boton} type="submit">Crear Pokemon</button>
     </form>
+    
     </div>
   )
 }

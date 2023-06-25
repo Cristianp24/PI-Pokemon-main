@@ -59,8 +59,6 @@ export const getTypes = () => {
     }
 
 
-  
-
 export const orderAZ = (AzA) => {
 
   return { type: ORDER_AZ, payload: AzA}

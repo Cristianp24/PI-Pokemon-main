@@ -21,24 +21,25 @@ export default function Detail(){
  
   useEffect(() => {
     dispatch(getPokemonById(id))
-  },[id]);
+  },[dispatch,id]);
 
     
       
     return(
         <div className={style.contenedor} >
-           <Link to='/home' ><button className={style.btn}>To Home</button></Link>
+               <div className={style.datos}></div>
               <h1 className={style.nombre}>{pokemon.name}</h1>
               <img className={style.image} src={pokemon.image} alt="" />
               <div className={style.datos}>
-              <p >Hp:{pokemon.hp}</p>
-              <p >Attack:{pokemon.attack}</p>
-              <p >Def:{pokemon.defense}</p>
-              <p >Speed:{pokemon.speed}</p>
-              <p >Height:{pokemon.height}</p>
-              <p >Weight:{pokemon.weight}</p>
-              <p >Type:{pokemon.types}</p>
+              <p >Hp: {pokemon.hp}</p>
+              <p >Attack:  {pokemon.attack}</p>
+              <p >Def:  {pokemon.defense}</p>
+              <p >Speed:  {pokemon.speed}</p>
+              <p >Height:  {pokemon.height}</p>
+              <p >Weight:  {pokemon.weight}</p>
+              <p >Type:  {pokemon.types}</p>
               </div>
+              <Link to='/home' ><button className={style.btn}>To Home</button></Link>
               
           </div>
         

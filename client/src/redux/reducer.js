@@ -25,13 +25,20 @@ const rootReducer = (state = initialState, action) => {
               ...state,
               pokemonDetail: action.payload,
           }
+          case GET_NAME_POKEMONS:
+            return{
+              ...state,
+              pokemons: [action.payload],
+           
+            };
+             case POST_POKEMON:
+          return { ...state }
   
 
         case GET_ALL_TYPES:
           return { ...state, types: action.payload  };
     
-        case POST_POKEMON:
-          return { ...state }
+       
           
           case ORDER_AZ: 
       if (action.payload === "Z-A") {
@@ -50,12 +57,7 @@ const rootReducer = (state = initialState, action) => {
         };
       }
       break;
-      case GET_NAME_POKEMONS:
-    return{
-      ...state,
-      pokemons: [action.payload],
-   
-    };
+     
 
       case ORDER_ATTACK:
         if (action.payload === "(+-) Attack") {

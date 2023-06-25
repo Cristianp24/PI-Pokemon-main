@@ -18,11 +18,15 @@ export default function SearchBar ()  {
 
    function handleSubmit(event){
        event.preventDefault();
+       if(!name) {
+        alert("Ingrese nombre")
+       }else {
        dispatch(getNamePokemons(name));
        setPage(1);
        setName("");
        
    }
+}
   
       
         return (
