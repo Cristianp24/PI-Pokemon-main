@@ -17,8 +17,6 @@ const Home = () => {
 
   const allPokemons = useSelector((state) => state.pokemons);
 
-
-
   const handleFilterChange = (event) => {
     dispatch(filterCreated(event.target.value));
   };
@@ -41,7 +39,6 @@ const Home = () => {
 
   const handleFilterAttack = (e) => {
     e.preventDefault();
-
     setSelectedAttack(e.target.value);
     dispatch(orderAttack(e.target.value));
   };
@@ -53,66 +50,65 @@ const Home = () => {
     } else {
       dispatch(getFilterPokemons(event.target.value));
     }
-
   }
 
   return (
     <div className={style.home}>
       <div className={style.filter}>
-      <select onChange={(e) => handleFilterChange(e)} className={style.select}>
-        <option value="All">All</option>
-        <option value="Created">DB</option>
-        <option value="Existing">API</option>
-      </select>
+        <select
+          onChange={(e) => handleFilterChange(e)}
+          className={style.select}
+        >
+          <option value="All">All</option>
+          <option value="Created">DB</option>
+          <option value="Existing">API</option>
+        </select>
 
-      
-
-      <select
-        onChange={(event) => handleFilterType(event)}
-        className={style.types}
-      >
-        <option value="All">All</option>{" "}
-        
-        {allTypes.map((t) => {
-          return (
-            <option value={t.name} key={t.name}>
-              {t.name[0].toUpperCase() + t.name.slice(1)}
-            </option>
-          );
-        })}
-      </select>
-      <select
-        id="order-filter"
-        value={selectedAZ}
-        onChange={handleOrderAZ}
-        className={style.SelectOption}
-      >
-        <option value={selectedAZ} className={style.SelectOption}>
-          {selectedAZ}
-        </option>
-        <option value="A-Z" className={style.SelectOption}>
-          A-Z
-        </option>
-        <option value="Z-A" className={style.SelectOption}>
-          Z-A
-        </option>
-      </select>
-      <select
-        id="order-filter"
-        value={selectedAttack}
-        onChange={handleFilterAttack}
-        className={style.SelectOption}
-      >
-        <option value={selectedAttack} className={style.SelectOption}>
-          {selectedAttack}
-        </option>
-        <option value="(+-) Attack" className={style.SelectOption}>
-          (+-) Attack
-        </option>
-        <option value="(-+) Attack" className={style.SelectOption}>
-          (-+) Attack
-        </option>
-      </select>
+        <select
+          onChange={(event) => handleFilterType(event)}
+          className={style.types}
+        >
+          <option value="All">All</option>{" "}
+          {allTypes.map((t) => {
+            return (
+              <option value={t.name} key={t.name}>
+                {t.name[0].toUpperCase() + t.name.slice(1)}
+              </option>
+            );
+          })}
+        </select>
+        <select
+          id="order-filter"
+          value={selectedAZ}
+          onChange={handleOrderAZ}
+          className={style.SelectOption}
+        >
+          <option value={selectedAZ} className={style.SelectOption}>
+            {selectedAZ}
+          </option>
+          <option value="A-Z" className={style.SelectOption}>
+            A-Z
+          </option>
+          <option value="Z-A" className={style.SelectOption}>
+            Z-A
+          </option>
+        </select>
+        <select
+          id="order-filter"
+          value={selectedAttack}
+          onChange={handleFilterAttack}
+          className={style.SelectOption}
+        >
+          <option value={selectedAttack} className={style.SelectOption}>
+            {selectedAttack}
+          </option>
+          <option value="(+-) Attack" className={style.SelectOption}>
+            (+-) Attack
+          </option>
+          <option value="(-+) Attack" className={style.SelectOption}>
+            (-+) Attack
+          </option>
+        </select>
       </div>
       <Cards pokemons={allPokemons} />
     </div>

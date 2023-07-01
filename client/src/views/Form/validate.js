@@ -5,7 +5,7 @@ export default function validate(form) {
 
   if (form.name.trim() === '') {
     errors.name = 'Nombre es obligatorio';
-  }
+  } 
 
   if (form.image.trim() === '') {
     errors.image = 'Imagen es obligatoria';

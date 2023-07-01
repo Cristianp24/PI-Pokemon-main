@@ -84,3 +84,11 @@ top: 10px;
     margin-top: 5px;
 border-radius: 5px;
 }
+
+.error {
+ color: red;
+ font-size: medium;
+ margin-top: 2px;
+ font-family:'Times New Roman', Times, serif;
+
+}

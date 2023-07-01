@@ -9,23 +9,21 @@ const {
 // . status etc // y en los controlers las funcioness que me voy a traer los ocntroler retornan solo el resultado
 
 const getPokemonsHandler = async (req, res) => {
-    try {
-        const { name } = req.query;
-        
-        const allPokemon = await pokemons();
-        if(name){
-            const pokemon = await getPokemonByName(name);
-          
-            res.status(200).json(pokemon);
-        }else{
-           
-            res.status(200).json(allPokemon);
-        }
-    } catch (error) {
-        res.status(400).json({error : error.message});
-       
+  try {
+    const { name } = req.query;
+
+    const allPokemon = await pokemons();
+    if (name) {
+      const pokemon = await getPokemonByName(name);
+
+      res.status(200).json(pokemon);
+    } else {
+      res.status(200).json(allPokemon);
     }
-}
+  } catch (error) {
+    res.status(400).json({ error: error.message });
+  }
+};
 
 const getPokemonHandler = async (req, res) => {
   const { idPokemon } = req.params;
@@ -36,16 +34,6 @@ const getPokemonHandler = async (req, res) => {
     res.status(400).json({ error: error.mesagge });
   }
 };
-
-// const getPokemonHandlerName = async (req, res) => {
-//   try {
-//     const { name } = req.query;
-//     let poke = await getPokemonByName(name);
-//     res.status(200).json(poke);
-//   } catch (error) {
-//     res.status(400).json({ error: error.mesagge });
-//   }
-// };
 
 const newPokemon = async (req, res) => {
   try {
@@ -72,5 +60,4 @@ module.exports = {
   getPokemonsHandler,
   getPokemonHandler,
   newPokemon,
-  // getPokemonHandlerName,
 };
